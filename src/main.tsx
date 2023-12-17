@@ -15,12 +15,13 @@ import App from "@/App.tsx";
 import Header from "@/shared/Header";
 import Sidebar from "@/shared/Sidebar";
 import Footer from "@/shared/Footer";
+import Tickets from "@/Tickets";
 
 const rootRoute = new RootRoute({
   component: () => (
     <>
       <Header />
-      <div className="flex h-screen">
+      <div className="flex h-[92svh]">
         <Sidebar />
         <Outlet />
       </div>
@@ -36,7 +37,13 @@ const indexRoute = new Route({
   component: App,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute]);
+const ticketsRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: "/tickets",
+  component: Tickets,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, ticketsRoute]);
 
 const router = new Router({ routeTree });
 
